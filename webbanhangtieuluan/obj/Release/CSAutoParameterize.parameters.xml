@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="webmyphamConnectionString-Web.config Connection String" description="webmyphamConnectionString Connection String used in web.config by the application to access the database." defaultValue="Data Source=PHONG\MSSQLSERVER01;Initial Catalog=webmypham;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\ltweb\\webbanhangtieuluan\\webbanhangtieuluan\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='webmyphamConnectionString']/@connectionString" />
+  </parameter>
+</parameters>

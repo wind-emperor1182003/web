@@ -1,0 +1,103 @@
+﻿@model IEnumerable<webbanhangtieuluan.Models.taikhoan>
+
+@{
+    ViewBag.Title = "Danh sách khách hàng";
+    Layout = "~/Areas/admin/Views/Shared/layout2.cshtml";
+}
+@section naviheader {
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/Home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/SanPham" class="nav-link">@ViewBag.Title</a>
+        </li>
+    </ul>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Quản Lý @ViewBag.Title</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/Admin/Home">Home</a></li>
+                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
+<div class="container">
+   
+
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="search" placeholder="Tìm kiếm...">
+        </div>
+        <div class="col-md-8 text-right">
+            @Html.ActionLink("Tạo mới", "Create", null, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+
+    <table class="table table-bordered table-hover" id="customerTable">
+        <thead class="thead-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.HoTen)</th>
+                <th>@Html.DisplayNameFor(model => model.NgaySinh)</th>
+                <th>@Html.DisplayNameFor(model => model.GioiTinh)</th>
+                <th>@Html.DisplayNameFor(model => model.DienThoai)</th>
+                <th>@Html.DisplayNameFor(model => model.TaiKhoanweb)</th>
+                <th>@Html.DisplayNameFor(model => model.MatKhau)</th>
+                <th>@Html.DisplayNameFor(model => model.Email)</th>
+                <th>@Html.DisplayNameFor(model => model.DiaChi)</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.HoTen)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NgaySinh)</td>
+                    <td>@Html.DisplayFor(modelItem => item.GioiTinh)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DienThoai)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TaiKhoanweb)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MatKhau)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DiaChi)</td>
+                    <td>
+                        <a href="@Url.Action("Edit", new { id = item.MaKH })" class="btn btn-sm btn-warning">
+                            <i class="fas fa-edit"></i> Sửa
+                        </a>
+                        <a href="@Url.Action("Details", new { id = item.MaKH })" class="btn btn-sm btn-info">
+                            <i class="fas fa-info-circle"></i> Chi tiết
+                        </a>
+                        <a href="@Url.Action("Delete", new { id = item.MaKH })" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash-alt"></i> Xóa
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#search").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#customerTable tbody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+}

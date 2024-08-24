@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.Web.Infrastructure</id>
+    <version>2.0.0</version>
+    <title>Microsoft.Web.Infrastructure</title>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <licenseUrl>https://www.nuget.org/packages/Microsoft.Web.Infrastructure/2.0.0/license</licenseUrl>
+    <projectUrl>http://www.asp.net/</projectUrl>
+    <iconUrl>https://api.nuget.org/v3-flatcontainer/microsoft.web.infrastructure/2.0.0/icon</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This package contains the Microsoft.Web.Infrastructure assembly that lets you dynamically register HTTP modules at run time.</description>
+    <summary />
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+    <language>en-US</language>
+    <tags>ASPNETWEBPAGES</tags>
+  </metadata>
+</package>

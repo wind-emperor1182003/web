@@ -1,0 +1,259 @@
+﻿@model webbanhangtieuluan.Models.SanPham
+@using System.Web.Optimization;
+
+@{
+    ViewBag.Title = "Create New Product";
+    Layout = "~/Areas/admin/Views/Shared/layout2.cshtml";
+}
+@section naviheader {
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/Home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/SanPham" class="nav-link">@ViewBag.Title</a>
+        </li>
+    </ul>
+}
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Thông Tin Thêm Mới @ViewBag.Title</h3>
+    </div>
+    <div class="card-body p-0">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header p-2">
+                        <ul class="nav nav-pills">
+                            <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Thông Tin Chung</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Hình ảnh</a></li>
+                        </ul>
+                    </div><!-- /.card-header -->
+                    <div class="card-body tab-content">
+                        <div class="tab-pane" id="timeline">
+                            <div class="row">
+                                <div class="col-md-12 text-right">
+                                    <input type="file" id="fileInput" accept="image/*">
+                                    <button class="btn btn-primary" onclick="uploadImage()">Tải ảnh</button>
+                                    <table class="table table-hover" id="tbAnhSanPham">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align:center">#</th>
+                                                <th style="text-align:center">Ảnh</th>
+                                                <th style="text-align:center">Ảnh đại diện</th>
+                                                <th style="text-align:center">Thao Tác</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbHtml">
+                                            <!-- Các dòng dữ liệu ảnh sẽ được thêm vào đây -->
+                                        </tbody>
+                                    </table>
+                                    <input type="hidden" id="tCurrentId" value="0" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="activity">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-horizontal">
+
+                                    <h4>SanPham</h4>
+                                    <hr />
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MaSanPham, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.MaSanPham, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                            @Html.ValidationMessageFor(model => model.MaSanPham, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.TenSanPham, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.TenSanPham, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.TenSanPham, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.GiaBan, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.GiaBan, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.GiaBan, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MoTa, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.TextAreaFor(model => model.MoTa, new { @class = "form-control", rows = 5 })
+                                            @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Xuatsu, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Xuatsu, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Xuatsu, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.HanSuDung, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.HanSuDung, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.HanSuDung, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.AnhBia, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.AnhBia, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.AnhBia, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SoLuongTon, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.SoLuongTon, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.SoLuongTon, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MaLoai, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.DropDownListFor(x => x.MaLoai, ViewBag.loai as SelectList, "Chọn loại sản phẩm...", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(x => x.MaLoai, null, new { @class = "text-danger" })
+                                            
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.MaThuongHieu, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @*@Html.EditorFor(model => model.MaThuongHieu, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.MaThuongHieu, "", new { @class = "text-danger" })*@
+                                           
+                                          @Html.DropDownListFor(x => x.MaThuongHieu, ViewBag.huonghieu as SelectList, "Chọn thương hiệu...", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(x => x.MaThuongHieu, null, new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Moi, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Moi, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Moi, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Create" class="btn btn-primary" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                        <!-- Các tab khác -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+       
+
+        <div>
+        </div>
+        @Html.ActionLink("Back to List", "dssanpham", null, new { @class = "btn btn-secondary" })
+    </div>
+</div>
+@section scripts {
+    <script>
+        function uploadImage() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            const formData = new FormData();
+            formData.append('IMG', file);
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/admin/danhmucsanpham/UploadImage', true);
+
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    // Xử lý phản hồi từ máy chủ
+                    const response = JSON.parse(xhr.responseText);
+                    const url = response.url;
+                    const curentId = parseInt(document.getElementById('tCurrentId').value) + 1;
+                    let str = `<tr id="trow_${curentId}">
+                                <td style="text-align:center">${curentId}</td>
+                                <td style="text-align:center"><img width="80" src="${url}" /><input type="hidden" value="${url}" name="Images"/></td>
+                                <td style="text-align:center"><input type="radio" name="rDefault" value="${curentId}" ${curentId === 1 ? 'checked="checked"' : ''}/></td>
+                                <td style="text-align:center"><a href="#" data-id="${curentId}" data-url="${url}" class="btn btn-sm btn-danger btnXoaAnh">Xóa</a></td>
+                            </tr>`;
+                    $('#tbHtml').append(str);
+                    $('#tCurrentId').val(curentId);
+                    attachDeleteHandlers();
+                } else {
+                    console.error('Lỗi khi tải ảnh lên.');
+                }
+            };
+
+            xhr.onerror = function () {
+                console.error('Lỗi khi tải ảnh lên.');
+            };
+
+            xhr.send(formData);
+        }
+
+        function attachDeleteHandlers() {
+            $('.btnXoaAnh').off('click').on('click', function () {
+                const conf = confirm('Bạn có muốn xóa ảnh này không?');
+                if (conf === true) {
+                    const _id = $(this).data('id');
+                    const url = $(this).data('url');
+
+                    $.ajax({
+                        url: '/admin/danhmucsanpham/DeleteImage',
+                        type: 'POST',
+                        data: { imageUrl: url },
+                        success: function (response) {
+                            if (response.success) {
+                                $('#trow_' + _id).fadeTo('fast', 0, function () {
+                                    $(this).slideUp('fast', function () {
+                                        $(this).remove();
+                                    });
+                                });
+
+                                var temp = $('#tCurrentId').val();
+                                var curentId = parseInt(temp) - 1;
+                                $('#tCurrentId').val(curentId);
+                            } else {
+                                alert('Lỗi: ' + response.message);
+                            }
+                        },
+                        error: function () {
+                            alert('Lỗi khi xóa ảnh.');
+                        }
+                    });
+                }
+            });
+        }
+
+        // Gọi attachDeleteHandlers để gắn các sự kiện xóa ngay khi trang được tải
+        $(document).ready(function () {
+            attachDeleteHandlers();
+        });
+    </script>
+}

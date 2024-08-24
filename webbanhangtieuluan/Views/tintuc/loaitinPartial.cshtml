@@ -1,0 +1,9 @@
+﻿@model List<webbanhangtieuluan.Models.loaitin>
+
+@foreach (var item in Model)
+{
+
+    <li><a class="dropdown-item" href="~/tintuc/ShowToTinTuc?maTT=@item.MLTin">@item.TLTin</a></li>
+    @*<a href="~/ChuDe/SachTheoCD?maCD=@item.MaLoai"> @item.TenLoaiSanPham </a>
+        @*<li class="genre-item inline-block py-1 px-3 text-white text-sm rounded bg-red-600 hover:bg-red-700 dark:bg-teal-800 dark:hover:bg-teal-900"><a href="~/ChuDe/SachTheoCD?maCD=@item.MaLoai"> @item.TenLoaiSanPham </a></li>*@
+}

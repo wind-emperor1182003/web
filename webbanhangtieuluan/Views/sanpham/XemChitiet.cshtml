@@ -1,0 +1,253 @@
+﻿@model webbanhangtieuluan.Models.SanPham
+@using webbanhangtieuluan.Models
+@{
+    ViewBag.Title = "XemChitiet";
+    Layout = "~/Views/share/layout.cshtml";
+    }
+    @if (TempData["UpdateSuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["UpdateSuccessMessage"]
+    </div>
+}
+@if (TempData["OutOfStockMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["OutOfStockMessage"]
+    </div>
+}
+        <div class="container body-content">
+            <h2 style="padding-top:20px">Chi tiết sản phẩm</h2>
+            <hr />
+        </div>
+        <div class="container body-content">
+            <div class="card">
+                <div class="container-fliud">
+                    <div class="wrapper row">
+                        <div class="preview col-md-6">
+                            <div class="preview-pic tab-content">
+                                <i class="img">
+                                    <img class="img" src=" @Url.Content("~/IMG/" + Model.AnhBia) "alt=" image">
+                                </i>
+                            </div>
+                        </div>
+                        <div class="details col-md-6">
+                            <h3 class="product-title"> @Html.DisplayFor(model => model.TenSanPham)</h3>
+                            <h3 class="product-title">Số lượng trong kho: @Html.DisplayFor(model => model.SoLuongTon)</h3>
+                            <p class="review-no">Xuất xứ: @Html.DisplayFor(model => model.Xuatsu)</p>
+                            <h4 class="price">Giá: <span>@string.Format("{0:#,##0.##}₫", Model.GiaBan)</span></h4>
+                            <pre class="commit">
+ CAM KẾT KHI MUA SẮM
+    - Tư vấn nhiệt tình & tận tâm.
+    - Đảm bảo nguồn gốc & chất lượng sản phẩm.
+    - Tích lũy điểm, nâng hạng thẻ VIP & tận hưởng ưu đãi đặc quyền.
+                    </pre>
+
+                            <a class="btn-addtocart" id="btnThemVaoGioHang" href="@Url.Action("themgiohang", "giohang", new { @ms = Model.MaSanPham, @strURL = Request.Url.ToString() })">
+                                <div class="glyphicon glyphicon-shopping-cart"></div>
+                                Thêm vào giỏ hàng
+                            </a>
+                            <a class="btn-backtolist" href="@Url.Action("all", "sanpham", new { MaSP = Model.MaSanPham })">
+                                <div class="glyphicon glyphicon-backward"></div>
+                                Quay lại
+                            </a>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p style="font-weight:bold; font-size:20px" class="text-center">Thông tin sản phẩm: </p>
+            <div class=" description text-justify">
+                @Html.DisplayFor(model => model.MoTa)
+            </div>
+        </div>
+
+        <style>
+            div.product-name > h3 {
+                display: inline;
+            }
+
+            body {
+                font-family: Lato, sans-serif;
+            }
+
+            .commit {
+                background-color: white;
+                border: none;
+                border-top: 2px solid gray;
+                font-family: Lato, sans-serif;
+                font-size: 14px;
+            }
+
+            img {
+                max-width: 100%;
+            }
+
+
+            .card {
+                margin-top: 10px;
+                padding: 3em;
+                line-height: 1.5em;
+            }
+
+            .product-title, .price, .sizes {
+                text-transform: UPPERCASE;
+            }
+
+                .price span {
+                    color: #e68b24;
+                }
+
+            .product-title {
+                margin-top: 0;
+            }
+
+            .description {
+                font-size: 18px;
+                white-space: pre-line;
+            }
+
+            .btn-addtocart {
+                background-color: white;
+                border: none;
+                color: black;
+                padding: 8px 16px;
+                display: inline-block;
+                font-size: 16px;
+                margin: auto;
+                transition-duration: 0.4s;
+                cursor: pointer;
+                text-decoration: none;
+                border: 2px solid #c47135;
+            }
+
+                .btn-addtocart:hover {
+                    background-color: #0c6363;
+                    color: #FF2;
+                    text-decoration: none;
+                }
+
+            .btn-backtolist {
+                background-color: #0c6363;
+                border: none;
+                color: white;
+                padding: 8px 16px;
+                display: inline-block;
+                font-size: 16px;
+                margin: auto;
+                transition-duration: 0.4s;
+                cursor: pointer;
+                text-decoration: none;
+                border: 2px solid #c47135;
+            }
+
+                .btn-backtolist:hover {
+                    background-color: #0c6363;
+                    color: #FF2;
+                    text-decoration: none;
+                }
+        </style>
+
+        @*<script>
+                // Biến toàn cục để theo dõi số lượng sản phẩm đã thêm vào giỏ hàng
+                var quan =0;
+
+                document.getElementById("btnThemVaoGioHang").addEventListener("click", function () {
+                    // Giả định SoLuongTon là thuộc tính đại diện cho số lượng trong kho
+                    var quantityInStock = @Model.SoLuongTon;
+
+                    // Kiểm tra nếu số lượng yêu cầu vượt quá số lượng tồn kho
+                    if (quan  > quantityInStock) {
+                        // Hiển thị thông báo nếu số lượng yêu cầu vượt quá số lượng tồn kho
+                        alert("Số lượng yêu cầu vượt quá số lượng tồn kho. Vui lòng giảm số lượng hoặc chọn sản phẩm khác.");
+                    } else if (quantityInStock <= 0) {
+                        // Hiển thị thông báo nếu sản phẩm đã hết hàng
+                        alert("Sản phẩm đã hết hàng. Vui lòng chọn sản phẩm khác.");
+                    } else {
+                        // Cập nhật số lượng sản phẩm trong giỏ hàng
+                        quan++;
+                        // Hiển thị thông báo thành công
+                        alert("Sản phẩm đã được thêm vào giỏ hàng thành công!");
+                    }
+                });
+            </script>*@
+        @*<div class="container">
+                <h4>Sản Phẩm</h4>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TenSanPham)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.TenSanPham)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.GiaBan)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.GiaBan)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.MoTa)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.MoTa)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Xuatsu)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Xuatsu)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.HanSuDung)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.HanSuDung)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.AnhBia)
+                    </dt>
+                    <dd>
+                        <img class="card-img-top" src=" @Url.Content("~/IMG/" + @Model.AnhBia) "alt=" image">
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SoLuongTon)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.SoLuongTon)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.MaLoai)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.MaLoai)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.MaThuongHieu)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.MaThuongHieu)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Moi)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Moi)
+                    </dd>
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Sửa", "Edit", new { id = Model.MaSanPham }, new { @class = "btn btn-primary" }) |
+                @Html.ActionLink("Quay Lại", "Index", null, new { @class = "btn btn-default" })
+            </p>*@

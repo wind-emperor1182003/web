@@ -1,0 +1,34 @@
+﻿@model IEnumerable<webbanhangtieuluan.Models.tintuc>
+
+@{
+    ViewBag.Title = "ShowToTinTuc";
+    Layout = "~/Views/share/layout.cshtml";
+}
+
+<h2>ShowToTinTuc</h2>
+
+<div class="search-container mb-3">
+    <label for="search" class="sr-only">Search by title</label>
+    <input type="text" id="search" class="form-control mr-2" placeholder="Search by title..." />
+    <button class="btn btn-secondary" onclick="searchNews()">Search</button>
+</div>
+
+<ul id="searchResults" class="list-group">
+    @foreach (var item in Model)
+    {
+        <li class="list-group-item">
+            <div class="card">
+                <img class="card-img-top" src="@Url.Content("~/IMG/tintuc/" + item.AnhMH)" alt="image @item.TieuDeTin" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.TieuDeTin)</h5>
+                    <p class="card-text">
+                        @Html.Raw(item.NoiDung.Length > 100 ? item.NoiDung.Substring(0, 100) + "..." : item.NoiDung)
+                    </p>
+                    <p class="card-text"><small class="text-muted">Posted on @item.NgayDang</small></p>
+                    @Html.ActionLink("Read More", "XemChitiettt", new { @maTT = item.Matin }, new { @class = "btn btn-primary" })
+
+                </div>
+            </div>
+        </li>
+    }
+</ul>

@@ -1,0 +1,63 @@
+﻿@model webbanhangtieuluan.Models.tintuc
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/admin/Views/Shared/layout2.cshtml";
+}
+@section naviheader {
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/Home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/SanPham" class="nav-link">@ViewBag.Title</a>
+        </li>
+    </ul>
+}
+<div class="container">
+    <h2 class="text-danger">Xóa tài khoản</h2>
+    <hr />
+
+    <h4>Bạn có chắc chắn muốn xóa tài khoản này?</h4>
+
+    @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+    {
+        <div class="alert alert-danger">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-12">
+            <dl class="dl-horizontal">
+                <dt>@Html.DisplayNameFor(model => model.Matin)</dt>
+                <dd>@Html.DisplayFor(model => model.Matin)</dd>
+                <dt>@Html.DisplayNameFor(model => model.TieuDeTin)</dt>
+                <dd>@Html.DisplayFor(model => model.TieuDeTin)</dd>
+                <dt>@Html.DisplayNameFor(model => model.loaitin)</dt>
+                <dd>@Html.DisplayFor(model => model.loaitin)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.NgayDang)</dt>
+                <dd>@Html.DisplayFor(model => model.NgayDang)</dd>
+
+                <dt>@Html.DisplayNameFor(model => model.NoiDung)</dt>
+                <dd>@Html.DisplayFor(model => model.NoiDung)</dd>
+
+               
+            </dl>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("Delete", "QLtintuc", new { id = Model.Matin }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <button type="submit" class="btn btn-danger">Xóa</button>
+            @Html.ActionLink("Hủy", "dstintuc", null, new { @class = "btn btn-secondary" })
+        </div>
+    }
+</div>
+

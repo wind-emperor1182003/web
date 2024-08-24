@@ -1,0 +1,92 @@
+﻿@model IEnumerable<webbanhangtieuluan.Models.SanPham>
+
+@{
+    ViewBag.Title = "dssanpham";
+    Layout = "~/Areas/admin/Views/Shared/layout2.cshtml";
+}
+
+<h2>dssanpham</h2>
+
+@section naviheader {
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/Home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/SanPham" class="nav-link">@ViewBag.Title</a>
+        </li>
+    </ul>
+}
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<div class="row mb-3">
+    <div class="col-md-4">
+        <input type="text" class="form-control" id="search" placeholder="Search...">
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover" id="productTable">
+        <thead class="thead-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.TenSanPham)</th>
+                <th>@Html.DisplayNameFor(model => model.GiaBan)</th>
+                <th>@Html.DisplayNameFor(model => model.MoTa)</th>
+                <th>@Html.DisplayNameFor(model => model.Xuatsu)</th>
+                <th>@Html.DisplayNameFor(model => model.HanSuDung)</th>
+                <th>@Html.DisplayNameFor(model => model.AnhBia)</th>
+                <th>@Html.DisplayNameFor(model => model.SoLuongTon)</th>
+                <th>@Html.DisplayNameFor(model => model.MaLoai)</th>
+                <th>@Html.DisplayNameFor(model => model.MaThuongHieu)</th>
+                <th>@Html.DisplayNameFor(model => model.Moi)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.TenSanPham)</td>
+                    <td>@Html.DisplayFor(modelItem => item.GiaBan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MoTa)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Xuatsu)</td>
+                    <td>@Html.DisplayFor(modelItem => item.HanSuDung)</td>
+                    <td>
+                        <img class="img-thumbnail" src="@Url.Content("~/IMG/" + item.AnhBia)" alt="image" style="max-width: 100px; max-height: 100px;" />
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.SoLuongTon)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MaLoai)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MaThuongHieu)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Moi)</td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            @Html.ActionLink("Edit", "edits", new { id = item.MaSanPham }, new { @class = "btn btn-primary btn-sm" })
+                            @Html.ActionLink("Details", "Details", new { id = item.MaSanPham }, new { @class = "btn btn-info btn-sm" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.MaSanPham }, new { @class = "btn btn-danger btn-sm" })
+                            <a href="~/admin/danhmucsanpham/edits?id=@item.MaSanPham" class="btn btn-secondary btn-sm">Sửa</a>
+                            <a href="~/admin/danhmucsanpham/Delete?id=@item.MaSanPham" class="btn btn-secondary btn-sm">Xóa</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#search").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#productTable tbody tr").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+}

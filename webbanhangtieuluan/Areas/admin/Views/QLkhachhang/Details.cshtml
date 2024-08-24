@@ -1,0 +1,55 @@
+﻿@model webbanhangtieuluan.Models.taikhoan
+
+@{
+    ViewBag.Title = "Chi tiết tài khoản";
+    Layout = "~/Areas/admin/Views/Shared/layout2.cshtml";
+    var donHangs = ViewBag.DonHangs as List<webbanhangtieuluan.Models.DonHang>;
+}
+@section naviheader {
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/Home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/SanPham" class="nav-link">@ViewBag.Title</a>
+        </li>
+    </ul>
+}
+<div class="container">
+    <h2 class="my-4">Chi Tiết Tài Khoản</h2>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">@Model.HoTen</h4>
+            <p class="card-text">Ngày Sinh: @Model.NgaySinh</p>
+            <p class="card-text">Email: @Model.Email</p>
+            <p class="card-text">Địa Chỉ: @Model.DiaChi</p>
+        </div>
+    </div>
+    <h3 class="my-4">Đơn Hàng</h3>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Mã Đơn Hàng</th>
+                <th scope="col">Ngày Đặt</th>
+                <th scope="col">Ngày Giao</th>
+                <th scope="col">Chi Tiết</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in donHangs)
+            {
+                <tr>
+                    <td>@item.MaDonHang</td>
+                    <td>@item.NgayDat</td>
+                    <td>@item.NgayGiao</td>
+                    <td><a href="@Url.Action("Details1", "QLkhachhang", new { id = item.MaDonHang })">Details</a></td>
+                    <td><a href="@Url.Action("Delete1", "QLkhachhang", new { id = item.MaKH })">Details</a></td>
+                   
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

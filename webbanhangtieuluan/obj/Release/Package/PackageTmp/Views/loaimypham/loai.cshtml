@@ -1,0 +1,188 @@
+﻿@model List<webbanhangtieuluan.Models.SanPham>
+@{
+    ViewBag.Title = "loai";
+    Layout = "~/Views/share/layout.cshtml";
+}
+@if (ViewBag.ThongBao != null)
+{
+    <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center; margin:10px 0;">
+    <span style="font-size: 20px; background-color: white; padding: 0 10px;">
+        <i>@ViewBag.TenCD</i>
+        <i>@ViewBag.ThongBao</i>
+
+    </span>
+</div>
+}
+else
+{
+<div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center; margin:10px 0;">
+    <span style="font-size: 20px; background-color: white; padding: 0 10px;">
+        <i>@ViewBag.TenCD</i>
+
+    </span>
+</div>
+<ul class="container-menu">
+
+    @{
+        foreach (var item in Model)
+        {
+            <li class="product col-sm-3 col-lg-3">
+                <a class="item-image" href="@Url.Action("Details", "XemChiTiet", new { id = item.MaSanPham })" title="@item.TenSanPham">
+                    <img class="card-img-top" src=" @Url.Content("~/IMG/" + item.AnhBia) "alt=" image">
+
+                </a>
+
+                @if (item.TenSanPham.Length > 30)
+                {
+                    <p>
+                        <strong title="@item.TenSanPham">Tiêu đề: @item.TenSanPham.Substring(0, 30)...</strong><br />
+                        <a href="~/sanpham/XemChiTiet?ms=@item.MaSanPham">Xem chi tiết</a>
+                    </p>
+                }
+                else
+                {
+                    <p>
+                        <strong title="@item.TenSanPham">Tiêu đề: @item.TenSanPham</strong><br />
+                        <a href="~/sanpham/XemChiTiet?ms=@item.MaSanPham">Xem chi tiết</a>
+                    </p>
+                }
+            </li>
+
+        }
+    }
+</ul>
+}
+<style>
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .top-product {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .top-items {
+        flex: 1 1 calc(33.333% - 20px);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+        .top-items:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+    .item-img {
+        width: 100%;
+        height: auto;
+    }
+
+    .item-body {
+        padding: 15px;
+        background-color: #fff;
+    }
+
+    .item-heading {
+        font-size: 1.2em;
+        margin: 0 0 10px;
+        color: #333;
+    }
+
+    .item-datetime {
+        font-size: 0.9em;
+        color: #999;
+        margin-bottom: 10px;
+    }
+
+    .item-desc {
+        font-size: 1em;
+        color: #555;
+        margin-bottom: 15px;
+    }
+
+    .item-buy-btn {
+        display: inline-block;
+        padding: 10px 15px;
+        font-size: 1em;
+        color: #fff; /* Text color white */
+        background-color: #000; /* Black background color */
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+        .item-buy-btn:hover {
+            background-color: #0056b3;
+        }
+
+    .container-menu {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0;
+        list-style: none;
+    }
+
+        .container-menu .product {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: #000; /* Set default text color to black */
+        }
+
+    .product:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .item-image img {
+        width: 100%;
+        height: auto;
+        border-radius: 5px;
+    }
+
+    .name {
+        font-size: 1.1em;
+        margin: 10px 0;
+        color: #000; /* Ensure the name is black */
+    }
+
+    .price-label {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #e68b24; /* Keep the price label color as is */
+    }
+
+    .product a {
+        color: #000; /* Ensure links within products are black */
+        text-decoration: none; /* Remove underline from links */
+    }
+
+        .product a:hover {
+            color: #007bff; /* Change color on hover */
+            text-decoration: none; /* Ensure underline does not appear on hover */
+        }
+
+    .btn-allview {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 1em;
+        color: #fff; /* White text color */
+        background-color: #000; /* Black background color */
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+        .btn-allview:hover {
+            background-color: #333; /* Darker background color on hover */
+        }
+</style>

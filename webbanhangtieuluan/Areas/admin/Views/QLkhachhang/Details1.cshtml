@@ -1,0 +1,55 @@
+﻿@model webbanhangtieuluan.Models.DonHang
+
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+    Layout = "~/Areas/admin/Views/Shared/layout2.cshtml";
+    var chiTietDonHangs = ViewBag.ChiTietDonHangs as List<webbanhangtieuluan.Models.ChiTietDonHang>;
+}
+@section naviheader {
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/Home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/SanPham" class="nav-link">@ViewBag.Title</a>
+        </li>
+    </ul>
+}
+<div class="container">
+    <h2 class="my-4">Chi Tiết Đơn Hàng</h2>
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Mã Đơn Hàng: @Model.MaDonHang</h4>
+            <p class="card-text">Ngày Đặt: @Model.NgayDat</p>
+            <p class="card-text">Ngày Giao: @Model.NgayGiao</p>
+            <p class="card-text">Đã Thanh Toán: @Model.DaThanhToan</p>
+            <p class="card-text">Tình Trạng Giao Hàng: @Model.TinhTrangGiaoHang</p>
+        </div>
+    </div>
+    <h3 class="my-4">Chi Tiết Sản Phẩm</h3>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Mã Sản Phẩm</th>
+                    <th scope="col">Số Lượng</th>
+                    <th scope="col">Đơn Giá</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in chiTietDonHangs)
+                {
+                    <tr>
+                        <td>@item.MaSanpham</td>
+                        <td>@item.SoLuong</td>
+                        <td>@item.DonGia</td>
+                        <td><a href="@Url.Action("Delete2", "QLkhachhang", new { id = item.MaDonHang })">Details</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

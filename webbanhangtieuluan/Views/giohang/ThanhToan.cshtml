@@ -1,0 +1,98 @@
+﻿@model webbanhangtieuluan.Models.taikhoan
+
+@{
+    ViewBag.Title = "ThanhToan";
+    Layout = "~/Views/share/layout.cshtml";
+}
+
+@using (Html.BeginForm("ThanhToan", "giohang", FormMethod.Post, new { @class = "needs-validation", novalidate = "novalidate" }))
+{
+    <div class="form-group">
+        <label for="HoTen">Họ Tên:</label>
+        @Html.TextBoxFor(model => model.HoTen, new { @class = "form-control", required = "required" })
+        <div class="invalid-feedback">
+            Họ Tên không được để trống.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="DiaChi">Địa Chỉ:</label>
+        @Html.TextBoxFor(model => model.DiaChi, new { @class = "form-control", required = "required" })
+        <div class="invalid-feedback">
+            Địa Chỉ không được để trống.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="DienThoai">Điện Thoại:</label>
+        @Html.TextBoxFor(model => model.DienThoai, new { @class = "form-control", required = "required" })
+        <div class="invalid-feedback">
+            Điện Thoại không được để trống.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Email">Email:</label>
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", required = "required", type = "email" })
+        <div class="invalid-feedback">
+            Email không hợp lệ hoặc không được để trống.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="NgaySinh">Ngày Sinh:</label>
+        @Html.TextBoxFor(model => model.NgaySinh, new { @class = "form-control", type = "date", required = "required" })
+        <div class="invalid-feedback">
+            Ngày Sinh không được để trống.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="GioiTinh">Giới Tính:</label>
+        @Html.DropDownListFor(model => model.GioiTinh, new SelectList(new[] { "Nam", "Nữ" }), "Chọn giới tính", new { @class = "form-control", required = "required" })
+        <div class="invalid-feedback">
+            Vui lòng chọn giới tính.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="TaiKhoanweb">Tài Khoản Web:</label>
+        @Html.TextBoxFor(model => model.TaiKhoanweb, new { @class = "form-control", required = "required" })
+        <div class="invalid-feedback">
+            Tài Khoản Web không được để trống.
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="MatKhau">Mật Khẩu:</label>
+        @Html.PasswordFor(model => model.MatKhau, new { @class = "form-control", required = "required" })
+        <div class="invalid-feedback">
+            Mật Khẩu không được để trống.
+        </div>
+    </div>
+
+    <input type="submit" value="Xác Nhận" class="btn btn-primary" id="submitButton" />
+}
+
+@*<script>
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    } else {
+                        // Nếu form hợp lệ, thực hiện chuyển hướng sau khi submit
+                        event.preventDefault(); // Ngăn form gửi lại để kiểm soát việc chuyển hướng
+                        window.location.href = "https://example.com"; // Thay bằng URL bạn muốn chuyển hướng đến
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>*@
+

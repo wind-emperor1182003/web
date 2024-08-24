@@ -1,0 +1,130 @@
+﻿@model webbanhangtieuluan.Models.taikhoanadmin
+@{
+    ViewBag.Title = "Đăng Ký";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký Tài Khoản</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        .login-page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #f4f6f9;
+        }
+
+        .login-box {
+            width: 400px;
+            margin: 20px;
+        }
+
+        .login-logo img {
+            width: 100px;
+            height: auto;
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="login-page">
+    <div class="login-box">
+        <div class="login-logo text-center mb-4">
+            <img src="path/to/your/image.jpg" alt="Logo">
+        </div>
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <a href="#" class="h1"><b>Admin</b></a>
+            </div>
+            <div class="card-body">
+                <p class="login-box-msg">Đăng Ký Thông Tin</p>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <form class="user" method="post">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <label for="exampleInputUserName">UserName</label>
+                            @Html.TextBoxFor(x => x.TaiKhoanweb, null, new { @class = "form-control", @placeholder = "UserName" })
+                            @Html.ValidationMessageFor(x => x.TaiKhoanweb, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword">Mật Khẩu</label>
+                            @Html.TextBoxFor(x => x.MatKhau, new { @class = "form-control", @placeholder = "Mật Khẩu", @type = "password" })
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName">Họ Và Tên</label>
+                            @Html.TextBoxFor(x => x.HoTen, new { @class = "form-control", @placeholder = "Họ Và Tên" })
+                            @Html.ValidationMessageFor(x => x.HoTen, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPhone">Số Điện Thoại</label>
+                            @Html.TextBoxFor(x => x.DienThoai, new { @class = "form-control", @placeholder = "Số Điện Thoại" })
+                            @Html.ValidationMessageFor(x => x.DienThoai, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail">Email</label>
+                            @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Email", @type = "email" })
+                            @Html.ValidationMessageFor(x => x.Email, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputBirthday">Ngày Sinh</label>
+                            @Html.TextBoxFor(x => x.NgaySinh, new { @class = "form-control", @placeholder = "Ngày Sinh", @type = "date" })
+                            @Html.ValidationMessageFor(x => x.NgaySinh, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label>Giới Tính</label>
+                            <div class="form-check">
+                                @Html.RadioButtonFor(x => x.GioiTinh, "Nam", new { @class = "form-check-input", @id = "gioitinhNam" })
+                                <label class="form-check-label" for="gioitinhNam">Nam</label>
+                            </div>
+                            <div class="form-check">
+                                @Html.RadioButtonFor(x => x.GioiTinh, "Nữ", new { @class = "form-check-input", @id = "gioitinhNu" })
+                                <label class="form-check-label" for="gioitinhNu">Nữ</label>
+                            </div>
+                            @Html.ValidationMessageFor(x => x.GioiTinh, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="icheck-primary">
+                                    <input type="checkbox" id="remember">
+                                    <label for="remember">
+                                        Remember Me
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <button type="submit" class="btn btn-primary btn-block">Đăng Ký</button>
+                            </div>
+                        </div>
+                    </form>
+                }
+                <p class="mb-1">
+                    <a href="#">I forgot my password</a>
+                </p>
+                <p class="mb-0">
+                    <a href="~/Admin/User/Login" class="text-center">Đăng Nhập</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+</body>

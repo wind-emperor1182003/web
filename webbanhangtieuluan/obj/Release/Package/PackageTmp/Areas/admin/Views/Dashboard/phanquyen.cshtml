@@ -1,0 +1,132 @@
+﻿@model webbanhangtieuluan.Models.taikhoanadmin
+@using webbanhangtieuluan.Models
+@{
+    ViewBag.Title = "Phân quyền";
+    Layout = "~/Areas/admin/Views/Shared/layout2.cshtml";
+}
+@section naviheader {
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/Home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/SanPham" class="nav-link">@ViewBag.Title</a>
+        </li>
+    </ul>
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Quản Lý @ViewBag.Title</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/Admin/Home">Home</a></li>
+                    <li class="breadcrumb-item active">@ViewBag.Title</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container-fluid">
+    <section class="content-header">
+        <div class="row mb-2">
+            <div class="col-md-12">
+                <h2>Phân quyền</h2>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="row mb-2">
+    <div class="col-md-12">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Họ tên</th>
+                    <td>@Model.HoTen</td>
+                </tr>
+                <tr>
+                    <th>Ngày sinh</th>
+                    <td>@Model.NgaySinh</td>
+                </tr>
+                <tr>
+                    <th>Giới tính</th>
+                    <td>@Model.GioiTinh</td>
+                </tr>
+                <tr>
+                    <th>Điện thoại</th>
+                    <td>@Model.DienThoai</td>
+                </tr>
+                <tr>
+                    <th>Tài khoản web</th>
+                    <td>@Model.TaiKhoanweb</td>
+                </tr>
+                <tr>
+                    <th>Mật khẩu</th>
+                    <td>@Model.MatKhau</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>@Model.Email</td>
+                </tr>
+                <tr>
+                    <th>Địa chỉ</th>
+                    <td>@Model.DiaChi</td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<div class="row mb-2">
+    <div class="col-md-6">
+        <h4>Phân quyền</h4>
+        <hr />
+        @{
+            var listChucNang = new webbanhangtieuluan.mapphanquyen().danhsachchucnang();
+            var listnhom = listChucNang.Select(m=>m.nhom).Distinct().ToList();
+        }
+
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Tên Chức Năng</th>
+                    <th>Kiểm Tra</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var nhom in listnhom)
+                {
+                    <tr>
+                        <th>@nhom</th>
+                        <th>Chọn tất cả||Hủy tất cả</th>
+                    </tr>
+                foreach(var cn in listChucNang.Where(m=>m.nhom ==nhom).ToList())
+                {
+                    bool check = new webbanhangtieuluan.mapphanquyen().KiemTra(Model.MaTK, cn.MaChucNang);
+                    <tr>
+                        <td>@cn.TenChucNang</td>
+                        <td>
+                            @if (check)
+                            {
+                                <input type="checkbox" class="form-check-input" checked />  
+    <a href="~/admin/Dashboard/luuphanquyen?idTaiKhoan=@Model.MaTK&chucNang=@cn.MaChucNang">hủy</a>
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="form-check-input" />
+    <a href="~/admin/Dashboard/luuphanquyen?idTaiKhoan=@Model.MaTK&chucNang=@cn.MaChucNang">Đăng ký</a>
+                            }
+                        </td>
+                    </tr>
+                }}
+            </tbody>
+        </table>
+    </div>
+</div>

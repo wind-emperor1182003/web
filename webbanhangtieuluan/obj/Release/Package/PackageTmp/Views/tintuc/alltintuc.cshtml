@@ -1,0 +1,96 @@
+﻿@model PagedList.PagedList<webbanhangtieuluan.Models.tintuc>
+
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "All News";
+    Layout = "~/Views/share/layout.cshtml";
+}
+
+<h2>All News</h2>
+
+<div class="search-container mb-3">
+    <label for="search" class="sr-only">Search by title</label>
+    <input type="text" id="search" class="form-control mr-2" placeholder="Search by title..." />
+    <button class="btn btn-secondary" onclick="searchNews()">Search</button>
+</div>
+
+<ul id="searchResults" class="list-group">
+    @foreach (var item in Model)
+    {
+        <li class="list-group-item">
+            <div class="card">
+                <img class="card-img-top" src="@Url.Content("~/IMG/tintuc/" + item.AnhMH)" alt="image @item.TieuDeTin" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.TieuDeTin)</h5>
+                    <p class="card-text">
+                        @Html.Raw(item.NoiDung.Length > 100 ? item.NoiDung.Substring(0, 100) + "..." : item.NoiDung)
+                    </p>
+                    <p class="card-text"><small class="text-muted">Posted on @item.NgayDang</small></p>
+                    @Html.ActionLink("Read More", "XemChitiettt", new { @maTT = item.Matin }, new { @class = "btn btn-primary" })
+                  
+                </div>
+            </div>
+        </li>
+    }
+</ul>
+<div class="text-center">
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item @(Model.IsFirstPage ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("alltintuc", new { page = 1 })">First</a>
+            </li>
+            <li class="page-item @(Model.IsFirstPage ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("alltintuc", new { page = Model.PageNumber - 1 })">Previous</a>
+            </li>
+            @for (var i = 1; i <= Model.PageCount; i++)
+            {
+                <li class="page-item @(Model.PageNumber == i ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("alltintuc", new { page = i })">@i</a>
+                </li>
+            }
+            <li class="page-item @(Model.IsLastPage ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("alltintuc", new { page = Model.PageNumber + 1 })">Next</a>
+            </li>
+            <li class="page-item @(Model.IsLastPage ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("alltintuc", new { page = Model.PageCount })">Last</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<script>
+    function searchNews() {
+        var searchValue = document.getElementById('search').value.trim().toLowerCase();
+        var cards = document.querySelectorAll('.card');
+
+        var searchResults = document.getElementById('searchResults');
+        searchResults.innerHTML = '';
+
+        cards.forEach(function (card) {
+            var title = card.querySelector('.card-title').innerText.trim().toLowerCase();
+            if (title.includes(searchValue)) {
+                var listItem = document.createElement('li');
+                listItem.className = 'list-group-item';
+                listItem.appendChild(card.parentElement.cloneNode(true));
+                searchResults.appendChild(listItem);
+            }
+        });
+    }
+</script>
+<style>
+    .search-container {
+        display: flex;
+        align-items: center;
+    }
+
+        .search-container form {
+            display: flex;
+            flex-grow: 1;
+        }
+
+        .search-container input[type="text"] {
+            flex-grow: 1;
+        }
+
+</style>

@@ -1,0 +1,30 @@
+﻿@model webbanhangtieuluan.Models.tintuc
+
+@{
+    ViewBag.Title = "Chi Tiết Tin Tức";
+    Layout = "~/Views/share/layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    <h4>@Model.TieuDeTin</h4>
+                </div>
+                <div class="card-body">
+                  
+                    <img src="@Url.Content("~/IMG/tintuc/" + @Model.AnhMH)" class="img-fluid mb-3" alt="@Model.TieuDeTin">
+                    <p class="card-text">@Model.NoiDung</p>
+                    <hr>
+                    <p class="card-text"><strong>Ngày Đăng:</strong> @Model.NgayDang</p>
+                    <p class="card-text"><strong>Loại Tin:</strong> @Model.MLTin</p>
+                    <p class="card-text"><strong>Tác Giả:</strong> @Model.NoiDung</p>
+                </div>
+                <div class="card-footer text-muted">
+                    <a href="@Url.Action("alltintuc")" class="btn btn-primary">Quay Lại Danh Sách Tin Tức</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

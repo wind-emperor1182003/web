@@ -1,0 +1,59 @@
+﻿@model IEnumerable<webbanhangtieuluan.Models.LoaiSanPham>
+
+@{
+    ViewBag.Title = "dsloai";
+    Layout = "~/Areas/admin/Views/Shared/layout2.cshtml";
+}
+
+<h2>Danh sách loại sản phẩm</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+</p>
+
+<!-- Tìm kiếm -->
+<div class="row mb-3">
+    <div class="col-md-4">
+        <input type="text" class="form-control" id="search" placeholder="Search...">
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.TenLoaiSanPham)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenLoaiSanPham)
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            @Html.ActionLink("Delete", "Delete", new { id = item.MaLoai }, new { @class = "btn btn-sm btn-danger", title = "Delete" })
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#search').on('keyup', function () {
+            var value = $(this).val().toLowerCase();
+            $('#table-body tr').filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>

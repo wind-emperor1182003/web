@@ -1,0 +1,48 @@
+﻿@model webbanhangtieuluan.Models.DonHang
+
+@{
+    ViewBag.Title = "Delete1";
+    Layout = "~/Areas/admin/Views/Shared/layout2.cshtml";
+}
+@section naviheader {
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/Home" class="nav-link">Home</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="/admin/SanPham" class="nav-link">@ViewBag.Title</a>
+        </li>
+    </ul>
+}
+<h2>Delete1</h2>
+<div class="container">
+    <h2 class="my-4">Xác nhận xóa đơn hàng</h2>
+
+    <div>
+        <h4>Bạn có chắc chắn muốn xóa đơn hàng này?</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>Mã đơn hàng:</dt>
+            <dd>@Model.MaDonHang</dd>
+            <!-- Hiển thị các thông tin khác của đơn hàng -->
+        </dl>
+
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+        @using (Html.BeginForm("Delete1", "QLkhachhang", new { id = Model.MaDonHang }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-actions no-color">
+                <input type="submit" value="Xóa" class="btn btn-danger" /> |
+                @Html.ActionLink("Hủy", "dskhachhang")
+            </div>
+        }
+    </div>
+</div>
